@@ -2,41 +2,70 @@ openapi: 3.0.1
 info:
   title: Elm API
   version: 1.0.0
-  description: |
-      # Introduction
-      The elm API has been designed in order to give users access to our collected database of user
-      information.
-      
-      # How to use this API
-      
-      # API Keys
-      This API relies on an API key for authentication. To generate/access your API key please make
-      sure that you have opted into the beta by speaking with a representative from Elm and that you
-      have admin level access to your Elm account. 
-      
-      Log in to your account and navigate to Account Settings and click on the API tab. On this page
-      you will be able to generate an API key, view your key, and regenerate your key if your existing
-      one is lost or exposed.
-      
-      Please note that API keys are sensitive pieces of information and as such should be kept secret,
-      like a password.
-      
-      # Authentication
-      Once you have your API key, you can use it for authentication by including it in the authorization header of your requests.
-      **Headers**
-      ```
-      Authorization: Token <your token>
-      ```
-      ## Example request
-      This request can be used to test your connection to the API. A successful request and authorization will return `{"success":true}`
-      ```
-      curl --request GET \
-        --url http://localhost:3002/api/test/ \
-        --header 'Authorization: <your token>'
-      ```
+  description: >
+    # Introduction
+
+    The elm API has been designed in order to give users access to our collected
+    database of user
+
+    information.
+
+
+    # How to use this API
+
+
+    # API Keys
+
+    This API relies on an API key for authentication. To generate/access your
+    API key please make
+
+    sure that you have opted into the beta by speaking with a representative
+    from Elm and that you
+
+    have admin level access to your Elm account. 
+
+
+    Log in to your account and navigate to Account Settings and click on the API
+    tab. On this page
+
+    you will be able to generate an API key, view your key, and regenerate your
+    key if your existing
+
+    one is lost or exposed.
+
+
+    Please note that API keys are sensitive pieces of information and as such
+    should be kept secret,
+
+    like a password.
+
+
+    # Authentication
+
+    Once you have your API key, you can use it for authentication by including
+    it in the authorization header of your requests.
+
+    **Headers**
+
+    ```
+
+    Authorization: Token <your token>
+
+    ```
+
+    ## Example request
+
+    This request can be used to test your connection to the API. A successful
+    request and authorization will return `{"success":true}`
+
+    ```
+
+    curl --request GET \
+      --url http://localhost:3002/api/test/ \
+      --header 'Authorization: <your token>'
+    ```
   contact:
     email: hello@getelm.co
-    
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -127,18 +156,6 @@ paths:
           description: Default error sample response
       tags:
         - actions
-    # post:
-    #   summary: Save action data from partners
-    #   description: >-
-    #     A route to save information about completed actions from partners. Note
-    #     - need to examine the shape of data returned from Bowimi to finish this
-    #     section
-    #   operationId: post_action
-    #   responses:
-    #     default:
-    #       description: Default error sample response
-    #   tags:
-    #     - actions
   /data/retailers:
     summary: Get available retailers
     description: Returns a list of retailers that the user has access to
@@ -234,4 +251,3 @@ paths:
           description: Default error sample response
       tags:
         - data
-  
