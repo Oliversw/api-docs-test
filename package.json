@@ -2,12 +2,14 @@
   "name": "elm-api",
   "version": "1.0.0",
   "dependencies": {
-    "@redocly/openapi-cli": "*"
+    "@redocly/openapi-cli": "*",
+    "handlebars": "^4.7.7"
   },
   "private": true,
   "scripts": {
     "start": "openapi preview-docs",
     "build": "openapi bundle -o dist",
-    "test": "openapi lint"
+    "test": "openapi lint",
+    "html-build": "redoc-cli build dist.yaml -t custom.hbs --options.theme.colors.primary.main=#05C6B3"
   }
 }
