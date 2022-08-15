@@ -1,0 +1,34 @@
+summary: Return store data
+get:
+  summary: ''
+  parameters:
+    - $ref: ../components/parameters/retailerParam.yaml
+    - in: query
+      name: timeframe
+      required: true
+      schema:
+        type: string
+        enum:
+          - week
+      example: timeframe=week
+      description: Time incremement for returned data
+    - in: query
+      name: metric
+      required: true
+      schema:
+        type: string
+        enum:
+          - units
+          - revenue
+          - wastage
+          - stock
+          - lostsales
+      description: |
+        Which metric(s) should be returned
+  description: ''
+  operationId: ''
+  responses:
+    default:
+      description: Default error sample response
+  tags:
+    - data

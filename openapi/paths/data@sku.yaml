@@ -1,0 +1,46 @@
+summary: Return sku data
+get:
+  summary: ''
+  parameters:
+    - $ref: ../components/parameters/retailerParam.yaml
+    - in: query
+      name: timeframe
+      required: true
+      schema:
+        type: string
+        enum:
+          - daily
+          - week
+      example: timeframe=daily
+      description: Time incremement for returned data
+    - in: query
+      name: metric
+      required: true
+      schema:
+        type: string
+        enum:
+          - units
+          - revenue
+          - wastage
+          - stock
+          - availability
+          - ros
+          - scanningros
+          - rangedstores
+          - storesselling
+          - storeswithstock
+          - storeswithsales
+      description: >
+        Which metric(s) should be returned. Please note that not all metrics are
+        available depending on retailer//timeframe selections. In general when
+        timeframe is daily: units, revenue, wastage, and availability can be
+        selected, and when timeframe is weekly: ros, scanningros, rangedstores,
+        storesselling, storesselling, storesselling, storesselling,
+        storeswithstock, storeswithsales can be selected.
+  description: ''
+  operationId: ''
+  responses:
+    default:
+      description: Default error sample response
+  tags:
+    - data

@@ -1,0 +1,11 @@
+summary: Get available retailers
+description: Returns a list of retailers that the user has access to
+get:
+  summary: Get available retailers
+  description: Returns a list of retailers that the user has access to
+  operationId: get_retailers
+  responses:
+    default:
+      description: Default error sample response
+  tags:
+    - general

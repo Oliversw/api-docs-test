@@ -1,0 +1,49 @@
+summary: Test your connection and credentials
+description: >-
+  A simple path that can be used to test that you are correctly applying your
+  credentials
+get:
+  summary: Test your connection
+  description: >-
+    Test that you are correctly connecting to the API. Will return a success or
+    error message accordingly
+  operationId: test_connection
+  responses:
+    '200':
+      description: Object indicating success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: A boolean indicating that the query was successful
+    '401':
+      description: 'Object indicating an unsuccesful query, with error message'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: A boolean indicating that the query was unsuccessful\
+              error:
+                type: string
+                description: Error message
+    default:
+      description: 'Object indicating an unsuccesful query, with error message'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: A boolean indicating that the query was unsuccessful\
+              error:
+                type: string
+                description: Error message
+  tags:
+    - test

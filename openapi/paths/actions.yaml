@@ -1,0 +1,21 @@
+summary: Get all actions
+description: Returns a list of all available actions for the current user
+get:
+  summary: Get all actions
+  description: Returns a list of all available actions
+  parameters:
+    - in: query
+      name: status
+      required: false
+      schema:
+        type: string
+        enum:
+          - complete
+          - incomplete
+      description: Filters returned actions by status
+  operationId: get_actions
+  responses:
+    default:
+      description: Default error sample response
+  tags:
+    - actions

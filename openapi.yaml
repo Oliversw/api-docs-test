@@ -1,0 +1,237 @@
+openapi: 3.0.1
+info:
+  title: Elm API
+  version: 1.0.0
+  description: |
+      # Introduction
+      The elm API has been designed in order to give users access to our collected database of user
+      information.
+      
+      # How to use this API
+      
+      # API Keys
+      This API relies on an API key for authentication. To generate/access your API key please make
+      sure that you have opted into the beta by speaking with a representative from Elm and that you
+      have admin level access to your Elm account. 
+      
+      Log in to your account and navigate to Account Settings and click on the API tab. On this page
+      you will be able to generate an API key, view your key, and regenerate your key if your existing
+      one is lost or exposed.
+      
+      Please note that API keys are sensitive pieces of information and as such should be kept secret,
+      like a password.
+      
+      # Authentication
+      Once you have your API key, you can use it for authentication by including it in the authorization header of your requests.
+      **Headers**
+      ```
+      Authorization: Token <your token>
+      ```
+      ## Example request
+      This request can be used to test your connection to the API. A successful request and authorization will return `{"success":true}`
+      ```
+      curl --request GET \
+        --url http://localhost:3002/api/test/ \
+        --header 'Authorization: <your token>'
+      ```
+  contact:
+    email: hello@getelm.co
+    
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: authorization
+  parameters:
+    retailerParam:
+      in: query
+      name: retailer
+      required: true
+      schema:
+        type: string
+      description: Name of retailer to pull data from
+      example: retailer=sainsburys
+security:
+  - ApiKeyAuth: []
+paths:
+  /test:
+    summary: Test your connection and credentials
+    description: >-
+      A simple path that can be used to test that you are correctly applying
+      your credentials
+    get:
+      summary: Test your connection
+      description: >-
+        Test that you are correctly connecting to the API. Will return a success
+        or error message accordingly
+      operationId: test_connection
+      responses:
+        '200':
+          description: Object indicating success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: A boolean indicating that the query was successful
+        '401':
+          description: Object indicating an unsuccesful query, with error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: A boolean indicating that the query was unsuccessful\
+                  error:
+                    type: string
+                    description: Error message
+        default:
+          description: Object indicating an unsuccesful query, with error message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: A boolean indicating that the query was unsuccessful\
+                  error:
+                    type: string
+                    description: Error message
+      tags:
+        - test
+  /actions:
+    summary: Get all actions
+    description: Returns a list of all available actions for the current user
+    get:
+      summary: Get all actions
+      description: Returns a list of all available actions
+      parameters:
+        - in: query
+          name: status
+          required: false
+          schema:
+            type: string
+            enum:
+              - complete
+              - incomplete
+          description: Filters returned actions by status
+      operationId: get_actions
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - actions
+    # post:
+    #   summary: Save action data from partners
+    #   description: >-
+    #     A route to save information about completed actions from partners. Note
+    #     - need to examine the shape of data returned from Bowimi to finish this
+    #     section
+    #   operationId: post_action
+    #   responses:
+    #     default:
+    #       description: Default error sample response
+    #   tags:
+    #     - actions
+  /data/retailers:
+    summary: Get available retailers
+    description: Returns a list of retailers that the user has access to
+    get:
+      summary: Get available retailers
+      description: Returns a list of retailers that the user has access to
+      operationId: get_retailers
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - general
+  /data/store:
+    summary: Return store data
+    get:
+      summary: ''
+      parameters:
+        - $ref: '#/components/parameters/retailerParam'
+        - in: query
+          name: timeframe
+          required: true
+          schema:
+            type: string
+            enum:
+              - week
+          example: timeframe=week
+          description: Time incremement for returned data
+        - in: query
+          name: metric
+          required: true
+          schema:
+            type: string
+            enum:
+              - units
+              - revenue
+              - wastage
+              - stock
+              - lostsales
+          description: |
+            Which metric(s) should be returned
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - data
+  /data/sku:
+    summary: Return sku data
+    get:
+      summary: ''
+      parameters:
+        - $ref: '#/components/parameters/retailerParam'
+        - in: query
+          name: timeframe
+          required: true
+          schema:
+            type: string
+            enum:
+              - daily
+              - week
+          example: timeframe=daily
+          description: Time incremement for returned data
+        - in: query
+          name: metric
+          required: true
+          schema:
+            type: string
+            enum:
+              - units
+              - revenue
+              - wastage
+              - stock
+              - availability
+              - ros
+              - scanningros
+              - rangedstores
+              - storesselling
+              - storeswithstock
+              - storeswithsales
+          description: >
+            Which metric(s) should be returned. Please note that not all metrics
+            are available depending on retailer//timeframe selections. In
+            general when timeframe is daily: units, revenue, wastage, and
+            availability can be selected, and when timeframe is weekly: ros,
+            scanningros, rangedstores, storesselling, storesselling,
+            storesselling, storesselling, storeswithstock, storeswithsales can
+            be selected.
+      description: ''
+      operationId: ''
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - data
+  
